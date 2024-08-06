@@ -34,6 +34,7 @@ setup(
         "dev": [
             "bump2version>=1.0.1",
             "pytest>=6.2.5",
+            "pytest-asyncio>=0.14.0",
         ],
     },
 )
