@@ -11,7 +11,7 @@ setup(
     description="A Retrieval-Augmented Generation (RAG) Engine for managing embeddings and similarity search",
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/yourusername/rag_engine",
+    url="https://github.com/slava-vishnyakov/rag_engine",
     packages=find_packages(),
     classifiers=[
         "Development Status :: 3 - Alpha",
