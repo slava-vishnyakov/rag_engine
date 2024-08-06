@@ -6,8 +6,8 @@ with open("README.md", "r", encoding="utf-8") as fh:
 setup(
     name="rag_engine",
     version="0.1.1",
-    author="Your Name",
-    author_email="your.email@example.com",
+    author="Slava Vishnyakov",
+    author_email="bomboze@gmail.com",
     description="A Retrieval-Augmented Generation (RAG) Engine for managing embeddings and similarity search",
     long_description=long_description,
     long_description_content_type="text/markdown",
