@@ -5,7 +5,7 @@ with open("README.md", "r", encoding="utf-8") as fh:
 
 setup(
     name="rag_engine",
-    version="0.1.0",
+    version="0.1.1",
     author="Your Name",
     author_email="your.email@example.com",
     description="A Retrieval-Augmented Generation (RAG) Engine for managing embeddings and similarity search",
@@ -29,4 +29,9 @@ setup(
         "openai>=1.0.0",
         "sqlite-vec>=0.1.0",
     ],
+    extras_require={
+        "dev": [
+            "bump2version>=1.0.1",
+        ],
+    },
 )
