@@ -15,6 +15,15 @@ MODEL_DIMENSIONS = {
 }
 
 async def get_embedding_async(text: str, api_key: str, model: str, size: int = None) -> Tuple[List[float], str, int]:
+    """
+    Asynchronously get the embedding for a single text using the specified model.
+
+    :param text: The input text to embed.
+    :param api_key: OpenAI API key.
+    :param model: The embedding model to use.
+    :param size: The size of the embedding vector (only for non-ADA_002 models).
+    :return: A tuple containing the embedding vector, model name, and vector size.
+    """
     client = AsyncOpenAI(api_key=api_key)
     
     if model not in MODEL_DIMENSIONS:
@@ -28,9 +37,22 @@ async def get_embedding_async(text: str, api_key: str, model: str, size: int = N
     else:
         size = MODEL_DIMENSIONS[model]
     
-    response = await client.embeddings.create(input=text, model=model, dimensions=size)
+    kwargs = {"input": text, "model": model}
+    if model != ADA_002:
+        kwargs["dimensions"] = size
+    
+    response = await client.embeddings.create(**kwargs)
     return response.data[0].embedding, model, size
 
 async def get_embeddings(texts: List[str], api_key: str, model: str, size: int = None) -> List[Tuple[List[float], str, int]]:
+    """
+    Asynchronously get embeddings for multiple texts using the specified model.
+
+    :param texts: List of input texts to embed.
+    :param api_key: OpenAI API key.
+    :param model: The embedding model to use.
+    :param size: The size of the embedding vector (only for non-ADA_002 models).
+    :return: A list of tuples, each containing an embedding vector, model name, and vector size.
+    """
     tasks = [get_embedding_async(text, api_key, model, size) for text in texts]
     return await asyncio.gather(*tasks)

@@ -8,7 +8,7 @@ setup(
     version="0.1.0",
     author="Your Name",
     author_email="your.email@example.com",
-    description="A RAG (Retrieval-Augmented Generation) engine package",
+    description="A Retrieval-Augmented Generation (RAG) Engine for managing embeddings and similarity search",
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/yourusername/rag_engine",
@@ -22,14 +22,11 @@ setup(
         "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
     ],
     python_requires=">=3.7",
     install_requires=[
         "openai>=1.0.0",
-        "python-dotenv",
-        "sqlite-vec",
+        "sqlite-vec>=0.1.0",
     ],
-    extras_require={
-        "dev": ["pytest", "pytest-asyncio"],
-    },
 )
