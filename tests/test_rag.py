@@ -22,9 +22,9 @@ def rag():
 @pytest.mark.asyncio
 async def test_add_and_search(rag):
     sentences = ["This is a test sentence.", "Another example sentence."]
-    await rag.add(sentences)
+    rag.add(sentences)
     
-    results = await rag.search("test sentence", n=2)
+    results = rag.search("test sentence", n=2)
     assert len(results) == 2
     assert results[0]['text'] == "This is a test sentence."
 
@@ -34,11 +34,11 @@ async def test_delete_ids(rag):
         {"id": 1, "text": "Delete me"},
         {"id": 2, "text": "Keep me"}
     ]
-    await rag.add(sentences)
+    rag.add(sentences)
     
     rag.delete_ids([1])
     
-    results = await rag.search("Delete", n=2)
+    results = rag.search("Delete", n=2)
     assert len(results) == 1
     assert results[0]['text'] == "Keep me"
 
@@ -55,11 +55,11 @@ async def test_different_models():
     
     sentences = ["This is a test sentence."]
     
-    await rag_ada.add(sentences)
-    await rag_small.add(sentences)
+    rag_ada.add(sentences)
+    rag_small.add(sentences)
     
-    results_ada = await rag_ada.search("test", n=1)
-    results_small = await rag_small.search("test", n=1)
+    results_ada = rag_ada.search("test", n=1)
+    results_small = rag_small.search("test", n=1)
     
     assert len(results_ada) == 1
     assert len(results_small) == 1
@@ -79,11 +79,11 @@ async def test_model_consistency():
     rag = RAGEngine(db_file, api_key, model=ADA_002)
     
     sentences = ["This is a test sentence."]
-    await rag.add(sentences)
+    rag.add(sentences)
     
     # Try to create a new RAGEngine with a different model on the same database
     with pytest.raises(ValueError):
         rag_small = RAGEngine(db_file, api_key, model=SMALL_3)
-        await rag_small.add(sentences)
+        rag_small.add(sentences)
     
     os.remove(db_file)

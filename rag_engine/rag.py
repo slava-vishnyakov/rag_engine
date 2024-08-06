@@ -23,7 +23,7 @@ class RAGEngine:
         self.model = model
         self.size = size if model != ADA_002 else None
 
-    async def add(self, sentences: List[Union[str, Dict[str, Union[int, str]]]]) -> List[int]:
+    def add(self, sentences: List[Union[str, Dict[str, Union[int, str]]]]) -> List[int]:
         """
         Add sentences to the database and generate their embeddings.
 
@@ -40,11 +40,11 @@ class RAGEngine:
                 texts.append(item['text'])
                 ids.append(item['id'])
 
-        embeddings = await get_embeddings(texts, self.api_key, self.model, self.size)
+        embeddings = get_embeddings(texts, self.api_key, self.model, self.size)
         
         return self.db.insert_embeddings(texts, embeddings, ids)
 
-    async def search(self, query: str, n: int = 5) -> List[Dict[str, Union[str, float]]]:
+    def search(self, query: str, n: int = 5) -> List[Dict[str, Union[str, float]]]:
         """
         Search for similar sentences based on the query.
 
@@ -52,7 +52,7 @@ class RAGEngine:
         :param n: Number of results to return. Default is 5.
         :return: List of dictionaries containing similar sentences and their similarity scores.
         """
-        query_embedding, model, size = (await get_embeddings([query], self.api_key, self.model, self.size))[0]
+        query_embedding, model, size = get_embeddings([query], self.api_key, self.model, self.size)[0]
         return self.db.search_similar(query_embedding, n)
 
     def delete_ids(self, ids: List[int]) -> None:

@@ -26,10 +26,10 @@ async def main():
 
     # Add some sentences
     sentences = ["This is a test sentence.", "Another example sentence."]
-    await rag.add(sentences)
+    rag.add(sentences)
 
     # Search for similar sentences
-    results = await rag.search("test sentence", n=2)
+    results = rag.search("test sentence", n=2)
     print(results)
 
 # Run the async function
