@@ -32,6 +32,7 @@ setup(
     extras_require={
         "dev": [
             "bump2version>=1.0.1",
+            "pytest>=6.2.5",
         ],
     },
 )
