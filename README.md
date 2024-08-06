@@ -1,5 +1,7 @@
 # RAG Engine
 
+[![Python Tests](https://github.com/slava-vishnyakov/rag_engine/actions/workflows/python-tests.yml/badge.svg)](https://github.com/yourusername/rag_engine/actions/workflows/python-tests.yml)
+
 RAG Engine is a Python package for implementing Retrieval-Augmented Generation (RAG) using OpenAI's embeddings and a SQLite database with vector search capabilities.
 
 ## Installation
