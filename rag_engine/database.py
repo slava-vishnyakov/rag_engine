@@ -1,7 +1,7 @@
 import sqlite3
 import sqlite_vec
 import struct
-from typing import List, Dict, Union
+from typing import List, Dict, Union, Tuple
 
 def serialize_f32(vector: List[float]) -> bytes:
     """serializes a list of floats into a compact "raw bytes" format"""
@@ -17,9 +17,9 @@ class Database:
         self.conn.enable_load_extension(True)
         sqlite_vec.load(self.conn)
         self.conn.enable_load_extension(False)
-        self.create_table()
+        self.create_tables()
 
-    def create_table(self):
+    def create_tables(self):
         self.conn.execute("""
         CREATE TABLE IF NOT EXISTS embeddings (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -27,13 +27,40 @@ class Database:
             embedding BLOB NOT NULL
         )
         """)
+        self.conn.execute("""
+        CREATE TABLE IF NOT EXISTS embedding_model (
+            id INTEGER PRIMARY KEY,
+            model TEXT NOT NULL,
+            size INTEGER NOT NULL
+        )
+        """)
         self.conn.execute("CREATE INDEX IF NOT EXISTS idx_embeddings ON embeddings(embedding)")
         self.conn.commit()
 
-    def insert_embeddings(self, texts: List[str], embeddings: List[List[float]], ids: List[Union[int, None]]) -> List[int]:
+    def get_embedding_model(self) -> Tuple[str, int]:
+        cursor = self.conn.cursor()
+        cursor.execute("SELECT model, size FROM embedding_model LIMIT 1")
+        result = cursor.fetchone()
+        return result if result else (None, None)
+
+    def set_embedding_model(self, model: str, size: int):
+        cursor = self.conn.cursor()
+        cursor.execute("DELETE FROM embedding_model")
+        cursor.execute("INSERT INTO embedding_model (model, size) VALUES (?, ?)", (model, size))
+        self.conn.commit()
+
+    def insert_embeddings(self, texts: List[str], embeddings: List[Tuple[List[float], str, int]], ids: List[Union[int, None]]) -> List[int]:
         cursor = self.conn.cursor()
         result_ids = []
-        for text, embedding, id in zip(texts, embeddings, ids):
+        current_model, current_size = self.get_embedding_model()
+        
+        for text, (embedding, model, size), id in zip(texts, embeddings, ids):
+            if current_model is None and current_size is None:
+                self.set_embedding_model(model, size)
+                current_model, current_size = model, size
+            elif model != current_model or size != current_size:
+                raise ValueError(f"Embedding model mismatch. Expected {current_model} with size {current_size}, but got {model} with size {size}")
+            
             if id is None:
                 cursor.execute("INSERT INTO embeddings (text, embedding) VALUES (?, ?)", (text, serialize_f32(embedding)))
                 id = cursor.lastrowid
