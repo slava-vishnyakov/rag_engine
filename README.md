@@ -17,23 +17,19 @@ pip install rag_engine
 Here's a quick example of how to use RAG Engine:
 
 ```python
-import asyncio
 from rag_engine import RAGEngine
 
-async def main():
-    # Initialize the RAG Engine
-    rag = RAGEngine("database.sqlite")
+# Initialize the RAG Engine
+rag = RAGEngine("database.sqlite")
 
-    # Add some sentences
-    sentences = ["This is a test sentence.", "Another example sentence."]
-    rag.add(sentences)
+# Add some sentences
+sentences = ["This is a test sentence.", "Another example sentence."]
+rag.add(sentences)
 
-    # Search for similar sentences
-    results = rag.search("test sentence", n=2)
-    print(results)
+# Search for similar sentences
+results = rag.search("test sentence", n=2)
+print(results)
 
-# Run the async function
-asyncio.run(main())
 ```
 
 ## Key Features
