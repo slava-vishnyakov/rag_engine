@@ -1,8 +1,8 @@
-# RAG Engine
+# RAG Engine: Powerful Retrieval-Augmented Generation for Python
 
 [![Python Tests](https://github.com/slava-vishnyakov/rag_engine/actions/workflows/python-tests.yml/badge.svg)](https://github.com/slava-vishnyakov/rag_engine/actions/workflows/python-tests.yml)
 
-RAG Engine is a Python package for implementing Retrieval-Augmented Generation (RAG) using OpenAI's embeddings and a SQLite database with vector search capabilities.
+RAG Engine is a high-performance Python package for implementing Retrieval-Augmented Generation (RAG) using OpenAI's advanced embeddings and a SQLite database with efficient vector search capabilities. Enhance your natural language processing and machine learning projects with state-of-the-art semantic search and text generation.
 
 ## Installation
 
@@ -36,28 +36,29 @@ async def main():
 asyncio.run(main())
 ```
 
-## Features
+## Key Features
 
-- Supports multiple OpenAI embedding models: ADA_002, SMALL_3, and LARGE_3
-- Asynchronous operations for better performance
-- SQLite database with vector similarity search
-- Flexible API for adding, searching, and deleting embeddings
+- **Advanced Embedding Models**: Supports multiple OpenAI embedding models including ADA_002, SMALL_3, and LARGE_3 for versatile text representation
+- **High-Performance Asynchronous Operations**: Optimized for speed and efficiency in handling large-scale data
+- **Powerful Vector Similarity Search**: Utilizes SQLite database with built-in vector search capabilities for fast and accurate retrieval
+- **Flexible and Intuitive API**: Easy-to-use interface for adding, searching, and managing embeddings in your RAG pipeline
+- **Seamless Integration**: Designed to work smoothly with existing NLP and machine learning workflows
 
-## Development
+## Development and Contribution
 
-To set up the development environment:
+We welcome contributions to enhance RAG Engine's capabilities. To set up the development environment:
 
-1. Clone the repository
+1. Clone the repository: `git clone https://github.com/slava-vishnyakov/rag_engine.git`
 2. Install the package with development dependencies:
    ```
    pip install -e .[dev]
    ```
-3. Run the tests:
+3. Run the comprehensive test suite:
    ```
    pytest
    ```
 
-Note: Tests require a valid OpenAI API key. Set the `OPENAI_API_KEY` environment variable before running the tests.
+Note: Running tests requires a valid OpenAI API key. Set the `OPENAI_API_KEY` environment variable before executing the tests.
 
 ## License
 
