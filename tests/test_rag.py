@@ -1,6 +1,7 @@
 import pytest
 import os
 import sys
+from dotenv import load_dotenv
 
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -8,12 +9,12 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from rag_engine.rag import RAGEngine
 from rag_engine.embeddings import ADA_002, SMALL_3, LARGE_3
 
+load_dotenv()
+
 @pytest.fixture
 def rag():
     db_file = "test_rag.sqlite"
     api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        pytest.skip("OPENAI_API_KEY not set")
     rag = RAGEngine(db_file, api_key)
     yield rag
     os.remove(db_file)

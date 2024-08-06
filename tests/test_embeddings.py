@@ -1,18 +1,18 @@
 import pytest
 import os
 import sys
+from dotenv import load_dotenv
 
 # Add the parent directory to the Python path
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from rag_engine.embeddings import get_embeddings, ADA_002, SMALL_3, LARGE_3
 
+load_dotenv()
+
 @pytest.mark.asyncio
 async def test_get_embeddings_ada_002():
     api_key = os.getenv("OPENAI_API_KEY")
-    if not api_key:
-        pytest.skip("OPENAI_API_KEY not set")
-    
     texts = ["This is a test", "Another test"]
     embeddings = await get_embeddings(texts, api_key, ADA_002)
     
