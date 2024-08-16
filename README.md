@@ -20,7 +20,7 @@ Here's a quick example of how to use RAG Engine:
 from rag_engine import RAGEngine
 
 # Initialize the RAG Engine
-rag = RAGEngine("database.sqlite")
+rag = RAGEngine("database.sqlite", api_key='...your openai key...') # or set OPENAI_API_KEY env var
 
 # Add some sentences
 sentences = ["This is a test sentence.", "Another example sentence."]
