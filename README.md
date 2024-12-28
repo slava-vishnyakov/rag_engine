@@ -36,6 +36,7 @@ print(results)
 ## Key Features
 
 - **Advanced Embedding Models**: Supports multiple OpenAI embedding models including ADA_002, SMALL_3, and LARGE_3 for versatile text representation
+  `rag_ada = RAGEngine(db_file1, api_key, model=ADA_002)`, `rag_small = RAGEngine(db_file2, api_key, model=SMALL_3, size=512)`
 - **High-Performance Asynchronous Operations**: Optimized for speed and efficiency in handling large-scale data
 - **Powerful Vector Similarity Search**: Utilizes SQLite database with built-in vector search capabilities for fast and accurate retrieval
 - **Flexible and Intuitive API**: Easy-to-use interface for adding, searching, and managing embeddings in your RAG pipeline
